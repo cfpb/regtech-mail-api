@@ -18,7 +18,7 @@ match settings.email_mailer:
             settings.smtp_port,
             settings.smtp_username,  # type: ignore
             settings.smtp_password,  # type: ignore
-            use_tls=settings.smtp_use_tls,
+            settings.smtp_use_tls,
         )
     case EmailMailerType.MOCK:
         mailer = MockMailer()
