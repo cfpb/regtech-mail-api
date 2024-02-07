@@ -38,17 +38,20 @@ curl http://localhost:8765
 ### `POST /send`
 
 ```bash
-curl -s -X POST http://localhost:8765/send \
--H "Content-Type: application/x-www-form-urlencoded" \
--H "X-Mail-Subject: Update Institution" \
+curl -vs -X POST \
+-H "X-Mail-Subject: Institution Profile Change" \
 -H "X-Mail-Sender-Address: jane.doe@some.org" \
 -H "X-Mail-Sender-Name: Jane Doe" \
--d "lei=1234567890ABCDEFGHIJ&institution_name_1=Fintech 1&tin_1=12-3456789&rssd_1=1234567" | jq '.'
+-F lei=1234567890ABCDEFGHIJ \
+-F "institution_name_1=Fintech 1" \
+-F tin_1=12-3456789 \
+-F rssd_1=1234567 \
+http://localhost:8765/send | jq '.'
 ```
 ```json
 {
   "email": {
-    "subject": "Update Institution",
+    "subject": "Institution Profile Change",
     "body": "lei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
     "from_addr": "noreply@localhost.localdomain",
     "sender": "Jane Doe <jane.doe@some.org>",
