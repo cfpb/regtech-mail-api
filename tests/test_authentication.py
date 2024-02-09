@@ -96,6 +96,4 @@ class TestEmailApiAuthentication:
             },
         )
         assert res.status_code == 200
-        print(f"{res.json()}")
-        print(f"{email_json}")
         assert res.json() == email_json
