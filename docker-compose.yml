@@ -1,0 +1,23 @@
+version: '3.0'
+
+services:
+  mail_api:
+    build: .
+    ports:
+      - 8765:8765
+    environment:
+      SMTP_HOST: mailpit
+      SMTP_PORT: 1025
+      FROM_ADDR: noreply@localhost.localdomain
+      TO: cases@localhost.localdomain
+
+  mailpit:
+    image: axllent/mailpit
+    ports:
+      - 8025:8025
+      - 1025:1025
+    environment:
+      #MP_MAX_MESSAGES: 5000
+      #MP_DATA_FILE: /data/mailpit.db
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
