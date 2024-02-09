@@ -12,12 +12,11 @@ class TestEmailApiSettings:
     default_smtp_username = SecretStr("tester_1")
     default_smtp_password = SecretStr("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
-
     def test_check_smtp_mock_sender(self):
         EmailApiSettings(
             email_mailer=EmailMailerType.MOCK,
             from_addr=self.default_from_addr,
-                to=self.default_to,
+            to=self.default_to,
         )
 
     def test_check_smtp_no_host(self):
@@ -28,7 +27,9 @@ class TestEmailApiSettings:
                 to=self.default_to,
             )
 
-        assert "SMTP host must be set when using SMTP email sender" in str(excinfo.value)
+        assert "SMTP host must be set when using SMTP email sender" in str(
+            excinfo.value
+        )
 
     def test_check_smtp_with_host(self):
         EmailApiSettings(
@@ -58,8 +59,10 @@ class TestEmailApiSettings:
                 to=self.default_to,
             )
 
-        assert "username and password must both be set when using SMTP credentials" in str(excinfo.value)
-
+        assert (
+            "username and password must both be set when using SMTP credentials"
+            in str(excinfo.value)
+        )
 
     def test_check_smtp_with_creds_no_password(self):
         with pytest.raises(ValidationError) as excinfo:
@@ -70,4 +73,7 @@ class TestEmailApiSettings:
                 from_addr=self.default_from_addr,
                 to=self.default_to,
             )
-        assert "username and password must both be set when using SMTP credentials" in str(excinfo.value)
+        assert (
+            "username and password must both be set when using SMTP credentials"
+            in str(excinfo.value)
+        )

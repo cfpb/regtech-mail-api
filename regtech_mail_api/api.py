@@ -30,6 +30,7 @@ match settings.email_mailer:
 def read_root():
     return {"message": "Welcome to the Email API"}
 
+
 # TODO: Remove this once out of initial dev
 @app.get("/debug")
 async def get_debug_info(request: Request):
@@ -61,6 +62,4 @@ async def send_email(request: Request):
 
     mailer.send(email)
 
-    return {
-        "email": email
-    }
+    return {"email": email}
