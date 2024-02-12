@@ -20,9 +20,12 @@ python-multipart = "^0.0.7"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
-black = "^24.1.1"
-ruff = "^0.1.15"
 pytest-cov = "^4.1.0"
+
+
+[tool.poetry.group.linters.dependencies]
+ruff = "^0.1.15"
+black = "^24.1.1"
 
 [build-system]
 requires = ["poetry-core"]
