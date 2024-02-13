@@ -4,11 +4,11 @@
 
 | Name                           |    Stmts |     Miss |   Branch |   BrPart |   Cover |   Missing |
 |------------------------------- | -------: | -------: | -------: | -------: | ------: | --------: |
-| regtech\_mail\_api/api.py      |       35 |       35 |       12 |        0 |      0% |      1-65 |
-| regtech\_mail\_api/mailer.py   |       28 |       28 |        6 |        0 |      0% |      1-46 |
-| regtech\_mail\_api/models.py   |       23 |       23 |        6 |        0 |      0% |      1-30 |
-| regtech\_mail\_api/settings.py |       25 |        0 |        8 |        0 |    100% |           |
-|                      **TOTAL** |  **111** |   **86** |   **32** |    **0** | **23%** |           |
+| regtech\_mail\_api/api.py      |       46 |        6 |       20 |        3 |     86% |43, 52-53, 65-68, 87->exit |
+| regtech\_mail\_api/mailer.py   |       28 |        8 |        6 |        0 |     65% | 13, 29-38 |
+| regtech\_mail\_api/models.py   |       23 |        2 |        6 |        2 |     86% |    23, 26 |
+| regtech\_mail\_api/settings.py |       27 |        0 |        8 |        0 |    100% |           |
+|                      **TOTAL** |  **124** |   **16** |   **40** |    **5** | **85%** |           |
 
 1 empty file skipped.
 
