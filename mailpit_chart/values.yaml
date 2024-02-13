@@ -1,0 +1,5 @@
+mapping:
+  enabled: true
+  host: mailpit-devpub-cd-eval.dev-public.aws.cfpb.gov
+  prefix: /
+
