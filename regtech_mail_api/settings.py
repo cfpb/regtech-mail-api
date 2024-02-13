@@ -2,6 +2,8 @@ from enum import Enum
 from pydantic import EmailStr, SecretStr, model_validator
 from pydantic_settings import BaseSettings
 
+from regtech_api_commons.oauth2.config import KeycloakSettings
+
 
 class EmailMailerType(str, Enum):
     MOCK = "mock"
@@ -33,3 +35,6 @@ class EmailApiSettings(BaseSettings):
                 raise ValueError("SMTP host must be set when using SMTP email sender")
 
         return self
+
+
+kc_settings = KeycloakSettings()
