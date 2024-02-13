@@ -21,10 +21,13 @@ regtech-api-commons = {git = "https://github.com/cfpb/regtech-api-commons.git"}
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
-black = "^24.1.1"
-ruff = "^0.1.15"
 pytest-mock = "^3.12.0"
 pytest-env = "^1.1.3"
+
+
+[tool.poetry.group.linters.dependencies]
+ruff = "^0.1.15"
+black = "^24.1.1"
 
 [build-system]
 requires = ["poetry-core"]
