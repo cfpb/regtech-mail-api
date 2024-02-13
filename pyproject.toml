@@ -11,15 +11,18 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.12"
-fastapi = {extras = ["all"], version = "^0.109.0"}
+fastapi = {extras = ["all"], version = "^0.104.1"}
 uvicorn = "^0.27.0.post1"
 pyyaml = "^6.0.1"
 email-validator = "^2.1.0.post1"
 python-multipart = "^0.0.7"
+regtech-api-commons = {git = "https://github.com/cfpb/regtech-api-commons.git"}
 
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
+pytest-mock = "^3.12.0"
+pytest-env = "^1.1.3"
 pytest-cov = "^4.1.0"
 
 
@@ -31,8 +34,23 @@ black = "^24.1.1"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-# Testing
 [tool.pytest.ini_options]
+pythonpath = ["regtech_mail_api"]
+testpaths = ["tests"]
+env = [
+  "KC_URL=http://localhost",
+  "KC_REALM=",
+  "KC_ADMIN_CLIENT_ID=",
+  "KC_ADMIN_CLIENT_SECRET=",
+  "KC_REALM_URL=http://localhost",
+  "AUTH_URL=http://localhost",
+  "TOKEN_URL=http://localhost",
+  "CERTS_URL=http://localhost",
+  "AUTH_CLIENT=",
+  "EMAIL_MAILER=mock",
+  "FROM_ADDR=test@cfpb.gov",
+  "TO=cases@localhost.localdomain"
+]
 addopts = [
     "--cov-report=term-missing",
     "--cov-branch",
@@ -42,9 +60,6 @@ addopts = [
     "-vv",
     "--strict-markers",
     "-rfE",
-]
-testpaths = [
-    "tests",
 ]
 
 [tool.coverage.run]
