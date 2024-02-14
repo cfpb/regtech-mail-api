@@ -36,8 +36,6 @@ spec:
               value: "0"
             - name: MP_SMTP_AUTH_ALLOW_INSECURE
               value: "1"
-            - name: MP_SMTP_AUTH
-              value: "$(SMTP_USERNAME):$(SMTP_PASSWORD)"
             - name: SMTP_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -48,6 +46,8 @@ spec:
                 secretKeyRef:
                   name: mailing-api-secrets
                   key: SMTP_PASSWORD
+            - name: MP_SMTP_AUTH
+              value: "$(SMTP_USERNAME):$(SMTP_PASSWORD)"
           ports:
             - containerPort: 8025
             - containerPort: 1025
