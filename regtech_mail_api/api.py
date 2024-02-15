@@ -9,6 +9,7 @@ from regtech_mail_api.settings import EmailApiSettings, EmailMailerType, kc_sett
 from starlette.authentication import requires
 from starlette.middleware.authentication import AuthenticationMiddleware
 
+from regtech_api_commons.models.auth import AuthenticatedUser
 from regtech_api_commons.oauth2.oauth2_backend import BearerTokenAuthBackend
 from regtech_api_commons.oauth2.oauth2_admin import OAuth2Admin
 
@@ -77,10 +78,10 @@ async def get_debug_info(request: Request):
 async def send_email(request: Request):
     headers = request.headers
     subject = headers["X-Mail-Subject"]
-    sender_addr = headers["X-Mail-Sender-Address"]
-    sender_name = headers["X-Mail-Sender-Name"]
+    sender_addr = request.user.email
+    sender_name = request.user.name
 
-    sender = f"{sender_name} <{sender_addr}>" if sender_addr else sender_name
+    sender = (f"{sender_name} <{sender_addr}>" if sender_addr else sender_name).strip()
 
     form_data = await request.form()
 
