@@ -6,7 +6,7 @@ from pytest_mock import MockerFixture
 from unittest.mock import Mock
 
 from regtech_api_commons.models.auth import AuthenticatedUser
-from starlette.authentication import AuthCredentials, UnauthenticatedUser
+from starlette.authentication import AuthCredentials
 
 
 @pytest.fixture
@@ -21,6 +21,7 @@ def auth_mock(mocker: MockerFixture) -> Mock:
     return mocker.patch(
         "regtech_api_commons.oauth2.oauth2_backend.BearerTokenAuthBackend.authenticate"
     )
+
 
 @pytest.fixture
 def user_no_profile_mock(auth_mock: Mock) -> Mock:
@@ -63,7 +64,7 @@ class TestEmailApiSend:
                 "bcc": None,
             }
         }
-        
+
         client = TestClient(app_fixture)
         res = client.post(
             "/send",
@@ -94,7 +95,7 @@ class TestEmailApiSend:
                 "bcc": None,
             }
         }
-        
+
         client = TestClient(app_fixture)
         res = client.post(
             "/send",

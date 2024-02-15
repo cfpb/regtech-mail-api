@@ -9,7 +9,6 @@ from regtech_mail_api.settings import EmailApiSettings, EmailMailerType, kc_sett
 from starlette.authentication import requires
 from starlette.middleware.authentication import AuthenticationMiddleware
 
-from regtech_api_commons.models.auth import AuthenticatedUser
 from regtech_api_commons.oauth2.oauth2_backend import BearerTokenAuthBackend
 from regtech_api_commons.oauth2.oauth2_admin import OAuth2Admin
 
