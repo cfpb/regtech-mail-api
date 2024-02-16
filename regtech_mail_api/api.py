@@ -80,7 +80,7 @@ async def send_email(request: Request):
     sender_addr = request.user.email
     sender_name = request.user.name
 
-    sender = (f"{sender_name} <{sender_addr}>" if sender_addr else sender_name).strip()
+    sender = f"{sender_name} <{sender_addr}>" if sender_name else sender_addr
 
     form_data = await request.form()
 
