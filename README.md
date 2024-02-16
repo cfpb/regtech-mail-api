@@ -28,7 +28,7 @@ poetry run pytest
 ```
 
 ## API
-The API endpoints require authentication to access.  The service uses the [regtech-api-commons](https://github.com/cfpb/regtech-api-commons) library to integrate with OAuth2, currently using Keycloak.
+The API endpoints require authentication to access.  The service uses the [regtech-api-commons](https://github.com/cfpb/regtech-api-commons) library to utilize OAuth2 authentication, currently using Keycloak.
 To use either endpoint, you must first get an access token from Keycloak.  The service will then use the name and email attributes from the token to populate the Sender field in the email.
 
 To get an access token, run the following curl command, using the Keycloak user you wish to test with (see [LOCAL_DEV_COMPOSE](https://github.com/cfpb/sbl-project/blob/main/LOCAL_DEV_COMPOSE.md) for launching Keycloak):
