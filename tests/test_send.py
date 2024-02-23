@@ -27,10 +27,7 @@ def auth_mock(mocker: MockerFixture) -> Mock:
 def user_no_profile_mock(auth_mock: Mock) -> Mock:
     claims = {
         "email": "test@cfpb.gov",
-<<<<<<< HEAD
         "preferred_username": "testuser",
-=======
->>>>>>> main
     }
     auth_mock.return_value = (
         AuthCredentials(["authenticated"]),
@@ -43,10 +40,7 @@ def user_no_profile_mock(auth_mock: Mock) -> Mock:
 def full_user_mock(auth_mock: Mock) -> Mock:
     claims = {
         "name": "Test User",
-<<<<<<< HEAD
         "preferred_username": "testuser",
-=======
->>>>>>> main
         "email": "test@cfpb.gov",
     }
     auth_mock.return_value = (
@@ -63,13 +57,8 @@ class TestEmailApiSend:
     ):
         email_json = {
             "email": {
-<<<<<<< HEAD
                 "subject": "SBL Portal User Request for testuser",
                 "body": "Contact Email: test@cfpb.gov\n\nlei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
-=======
-                "subject": "Institution Profile Change",
-                "body": "lei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
->>>>>>> main
                 "from_addr": "test@cfpb.gov",
                 "sender": "test@cfpb.gov",
                 "to": ["cases@localhost.localdomain"],
@@ -99,13 +88,8 @@ class TestEmailApiSend:
     ):
         email_json = {
             "email": {
-<<<<<<< HEAD
                 "subject": "SBL Portal User Request for Test User",
                 "body": "Contact Email: test@cfpb.gov\n\nlei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
-=======
-                "subject": "Institution Profile Change",
-                "body": "lei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
->>>>>>> main
                 "from_addr": "test@cfpb.gov",
                 "sender": "Test User <test@cfpb.gov>",
                 "to": ["cases@localhost.localdomain"],
