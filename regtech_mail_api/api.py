@@ -28,7 +28,7 @@ app.add_middleware(
     allow_origins=[
         "*"
     ],  # thinking this should be derived from an env var from docker-compose or helm values
-    allow_methods=["GET", "POST"],
+    allow_methods=["*"],
     allow_headers=["authorization"],
 )
 
@@ -75,17 +75,17 @@ async def get_debug_info(request: Request):
 @app.post("/send")
 @requires("authenticated")
 async def send_email(request: Request):
-    headers = request.headers
-    subject = headers["X-Mail-Subject"]
     sender_addr = request.user.email
     sender_name = request.user.name
+    subject = f"SBL Portal User Request for {sender_name if sender_name else request.user.username}"
 
     sender = f"{sender_name} <{sender_addr}>" if sender_name else sender_addr
 
     form_data = await request.form()
 
     body_lines = [f"{k}: {v}" for k, v in form_data.items()]
-    email_body = "\n".join(body_lines)
+    email_body = f"Contact Email: {sender_addr}\n\n"
+    email_body += "\n".join(body_lines)
 
     email = Email(subject, email_body, settings.from_addr, sender, to={settings.to})
 
