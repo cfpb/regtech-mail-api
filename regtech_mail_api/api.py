@@ -29,7 +29,7 @@ app.add_middleware(
         "*"
     ],  # thinking this should be derived from an env var from docker-compose or helm values
     allow_methods=["GET", "POST"],
-    allow_headers=["authorization"],
+    allow_headers=["*"],
 )
 
 
