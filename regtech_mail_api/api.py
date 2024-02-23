@@ -59,25 +59,19 @@ def read_root(request: Request):
     return {"message": "Welcome to the Email API"}
 
 
-# TODO: Remove this once out of initial dev
-@app.get("/debug")
-async def get_debug_info(request: Request):
-    headers = request.headers
-    form_data = await request.form()
-
-    return {
-        "headers": headers,
-        "form_data": form_data,
-        "settings": settings,
-    }
-
-
 @app.post("/send")
 @requires("authenticated")
 async def send_email(request: Request):
+<<<<<<< HEAD
     sender_addr = request.user.email
     sender_name = request.user.name
     subject = f"SBL Portal User Request for {sender_name if sender_name else request.user.username}"
+=======
+    headers = request.headers
+    subject = headers["X-Mail-Subject"]
+    sender_addr = request.user.email
+    sender_name = request.user.name
+>>>>>>> main
 
     sender = f"{sender_name} <{sender_addr}>" if sender_name else sender_addr
 
