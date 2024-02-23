@@ -59,19 +59,6 @@ def read_root(request: Request):
     return {"message": "Welcome to the Email API"}
 
 
-# TODO: Remove this once out of initial dev
-@app.get("/debug")
-async def get_debug_info(request: Request):
-    headers = request.headers
-    form_data = await request.form()
-
-    return {
-        "headers": headers,
-        "form_data": form_data,
-        "settings": settings,
-    }
-
-
 @app.post("/send")
 @requires("authenticated")
 async def send_email(request: Request):
