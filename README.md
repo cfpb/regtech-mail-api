@@ -93,13 +93,6 @@ You can browse your emails at:
 - http://localhost:8025/
 
 
-## AWS Cluster
-
-The mail-api service has been deployed to the SBL AWS Cluster.
-
-The API can be accessed at https://mailing-api-eks.dev-public.aws.cfpb.gov/ and Mailpit can be accessed at https://mailpit-eks.dev-public.aws.cfpb.gov/.  You will need to first authenticate through the cluster Keycloak at https://regtech-keycloak-eks.dev-public.aws.cfpb.gov/ to authenticate through the API.
-
-
 ## Open source licensing info
 1. [TERMS](TERMS.md)
 2. [LICENSE](LICENSE)
