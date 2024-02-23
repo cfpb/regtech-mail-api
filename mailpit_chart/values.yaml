@@ -1,5 +1,0 @@
-mapping:
-  enabled: true
-  host: mailpit-eks.dev-public.aws.cfpb.gov
-  prefix: /
-
