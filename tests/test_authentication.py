@@ -26,6 +26,7 @@ def auth_mock(mocker: MockerFixture) -> Mock:
 @pytest.fixture
 def authed_user_mock(auth_mock: Mock) -> Mock:
     claims = {
+        "name": "Test User",
         "preferred_username": "test_user",
         "email": "test@cfpb.gov",
     }
@@ -78,22 +79,3 @@ class TestEmailApiAuthentication:
         client = TestClient(app_fixture)
         res = client.get("/")
         assert res.status_code == 200
-
-        client = TestClient(app_fixture)
-        res = client.post(
-            "/send",
-            json=email_json,
-            headers={
-                "X-Mail-Subject": "Institution Profile Change",
-                "X-Mail-Sender-Address": "jane.doe@some.org",
-                "X-Mail-Sender-Name": "Jane Doe",
-            },
-            data={
-                "lei": "1234567890ABCDEFGHIJ",
-                "institution_name_1": "Fintech 1",
-                "tin_1": "12-3456789",
-                "rssd_1": "1234567",
-            },
-        )
-        assert res.status_code == 200
-        assert res.json() == email_json

@@ -43,8 +43,8 @@ match settings.email_mailer:
         mailer = SmtpMailer(
             settings.smtp_host,  # type: ignore
             settings.smtp_port,
-            settings.smtp_username,  # type: ignore
-            settings.smtp_password,  # type: ignore
+            settings.smtp_username.get_secret_value(),  # type: ignore
+            settings.smtp_password.get_secret_value(),  # type: ignore
             settings.smtp_use_tls,
         )
     case EmailMailerType.MOCK:
@@ -64,10 +64,10 @@ def read_root(request: Request):
 async def send_email(request: Request):
     headers = request.headers
     subject = headers["X-Mail-Subject"]
-    sender_addr = headers["X-Mail-Sender-Address"]
-    sender_name = headers["X-Mail-Sender-Name"]
+    sender_addr = request.user.email
+    sender_name = request.user.name
 
-    sender = f"{sender_name} <{sender_addr}>" if sender_addr else sender_name
+    sender = f"{sender_name} <{sender_addr}>" if sender_name else sender_addr
 
     form_data = await request.form()
 
