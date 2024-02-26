@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mailpit
+  namespace: regtech
+  labels:
+    mailing.app: mailpit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      mailing.app: mailpit
+  template:
+    metadata:
+      labels:
+        mailing.app: mailpit
+    spec:
+      serviceAccountName: secrets-csi-sa
+      volumes:
+      - name: mailing-api-secrets
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: regtech-provider
+      containers:
+        - name: mailpit
+          image: "axllent/mailpit"
+          imagePullPolicy: Always
+          volumeMounts:
+          - name: mailing-api-secrets
+            mountPath: "/mnt/secrets-store"
+            readOnly: true
+          env:
+            - name: MP_SMTP_AUTH_ACCEPT_ANY
+              value: "0"
+            - name: MP_SMTP_AUTH_ALLOW_INSECURE
+              value: "1"
+            - name: SMTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mailing-api-secrets
+                  key: SMTP_USERNAME
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mailing-api-secrets
+                  key: SMTP_PASSWORD
+            - name: MP_SMTP_AUTH
+              value: "$(SMTP_USERNAME):$(SMTP_PASSWORD)"
+          ports:
+            - containerPort: 8025
+            - containerPort: 1025
+          resources: {}

@@ -1,0 +1,7 @@
+apiVersion: v2
+name: mailpit
+description: A simple Helm Chart for mailpit
+
+type: application
+
+version: 0.1.0
