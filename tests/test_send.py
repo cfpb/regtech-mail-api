@@ -57,7 +57,7 @@ class TestEmailApiSend:
     ):
         email_json = {
             "email": {
-                "subject": "[DEV BETA] SBL Portal User Request for Institution Profile Change",
+                "subject": "[DEV BETA] SBL User Request for Institution Profile Change",
                 "body": "Contact Email: test@cfpb.gov\n\nlei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
                 "from_addr": "test@cfpb.gov",
                 "sender": "test@cfpb.gov",
@@ -88,7 +88,7 @@ class TestEmailApiSend:
     ):
         email_json = {
             "email": {
-                "subject": "[DEV BETA] SBL Portal User Request for Institution Profile Change by Test User",
+                "subject": "[DEV BETA] SBL User Request for Institution Profile Change by Test User",
                 "body": "Contact Email: test@cfpb.gov\n\nlei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
                 "from_addr": "test@cfpb.gov",
                 "sender": "Test User <test@cfpb.gov>",
