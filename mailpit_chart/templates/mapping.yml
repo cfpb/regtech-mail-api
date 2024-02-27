@@ -1,0 +1,13 @@
+{{- if .Values.mapping.enabled }}
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: mailpit
+  namespace: regtech
+spec:
+  ambassador_id:
+    --apiVersion-v3alpha1-only--default
+  host: {{ .Values.mapping.host }}
+  prefix: {{ .Values.mapping.prefix }}
+  service: mailpit
+{{- end }}

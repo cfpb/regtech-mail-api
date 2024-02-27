@@ -28,8 +28,8 @@ app.add_middleware(
     allow_origins=[
         "*"
     ],  # thinking this should be derived from an env var from docker-compose or helm values
-    allow_methods=["*"],
-    allow_headers=["authorization"],
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
 )
 
 
@@ -43,8 +43,8 @@ match settings.email_mailer:
         mailer = SmtpMailer(
             settings.smtp_host,  # type: ignore
             settings.smtp_port,
-            settings.smtp_username.get_secret_value(),  # type: ignore
-            settings.smtp_password.get_secret_value(),  # type: ignore
+            settings.smtp_username.get_secret_value() if settings.smtp_username else None,  # type: ignore
+            settings.smtp_password.get_secret_value() if settings.smtp_password else None,  # type: ignore
             settings.smtp_use_tls,
         )
     case EmailMailerType.MOCK:
@@ -64,7 +64,10 @@ def read_root(request: Request):
 async def send_email(request: Request):
     sender_addr = request.user.email
     sender_name = request.user.name
-    subject = f"SBL Portal User Request for {sender_name if sender_name else request.user.username}"
+    type = request.headers["case-type"]
+    subject = f"[DEV BETA] SBL Portal User Request for {type}" + (
+        f" by {sender_name}" if sender_name else ""
+    )
 
     sender = f"{sender_name} <{sender_addr}>" if sender_name else sender_addr
 
