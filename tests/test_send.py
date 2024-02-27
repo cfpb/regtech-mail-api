@@ -57,7 +57,7 @@ class TestEmailApiSend:
     ):
         email_json = {
             "email": {
-                "subject": "SBL Portal User Request for testuser",
+                "subject": "[DEV BETA] SBL Portal User Request for Institution Profile Change",
                 "body": "Contact Email: test@cfpb.gov\n\nlei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
                 "from_addr": "test@cfpb.gov",
                 "sender": "test@cfpb.gov",
@@ -71,7 +71,7 @@ class TestEmailApiSend:
         res = client.post(
             "/send",
             headers={
-                "X-Mail-Subject": "Institution Profile Change",
+                "case-type": "Institution Profile Change",
             },
             data={
                 "lei": "1234567890ABCDEFGHIJ",
@@ -88,7 +88,7 @@ class TestEmailApiSend:
     ):
         email_json = {
             "email": {
-                "subject": "SBL Portal User Request for Test User",
+                "subject": "[DEV BETA] SBL Portal User Request for Institution Profile Change by Test User",
                 "body": "Contact Email: test@cfpb.gov\n\nlei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
                 "from_addr": "test@cfpb.gov",
                 "sender": "Test User <test@cfpb.gov>",
@@ -102,7 +102,7 @@ class TestEmailApiSend:
         res = client.post(
             "/send",
             headers={
-                "X-Mail-Subject": "Institution Profile Change",
+                "case-type": "Institution Profile Change",
             },
             data={
                 "lei": "1234567890ABCDEFGHIJ",
