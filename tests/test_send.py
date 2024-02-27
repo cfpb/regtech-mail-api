@@ -27,6 +27,7 @@ def auth_mock(mocker: MockerFixture) -> Mock:
 def user_no_profile_mock(auth_mock: Mock) -> Mock:
     claims = {
         "email": "test@cfpb.gov",
+        "preferred_username": "testuser",
     }
     auth_mock.return_value = (
         AuthCredentials(["authenticated"]),
@@ -39,6 +40,7 @@ def user_no_profile_mock(auth_mock: Mock) -> Mock:
 def full_user_mock(auth_mock: Mock) -> Mock:
     claims = {
         "name": "Test User",
+        "preferred_username": "testuser",
         "email": "test@cfpb.gov",
     }
     auth_mock.return_value = (
@@ -55,8 +57,8 @@ class TestEmailApiSend:
     ):
         email_json = {
             "email": {
-                "subject": "Institution Profile Change",
-                "body": "lei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
+                "subject": "[DEV BETA] SBL User Request for Institution Profile Change",
+                "body": "Contact Email: test@cfpb.gov\n\nlei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
                 "from_addr": "test@cfpb.gov",
                 "sender": "test@cfpb.gov",
                 "to": ["cases@localhost.localdomain"],
@@ -69,7 +71,7 @@ class TestEmailApiSend:
         res = client.post(
             "/send",
             headers={
-                "X-Mail-Subject": "Institution Profile Change",
+                "case-type": "Institution Profile Change",
             },
             data={
                 "lei": "1234567890ABCDEFGHIJ",
@@ -86,8 +88,8 @@ class TestEmailApiSend:
     ):
         email_json = {
             "email": {
-                "subject": "Institution Profile Change",
-                "body": "lei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
+                "subject": "[DEV BETA] SBL User Request for Institution Profile Change by Test User",
+                "body": "Contact Email: test@cfpb.gov\n\nlei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
                 "from_addr": "test@cfpb.gov",
                 "sender": "Test User <test@cfpb.gov>",
                 "to": ["cases@localhost.localdomain"],
@@ -100,7 +102,7 @@ class TestEmailApiSend:
         res = client.post(
             "/send",
             headers={
-                "X-Mail-Subject": "Institution Profile Change",
+                "case-type": "Institution Profile Change",
             },
             data={
                 "lei": "1234567890ABCDEFGHIJ",
