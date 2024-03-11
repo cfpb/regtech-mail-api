@@ -63,7 +63,7 @@ def read_root(request: Request):
 @requires("authenticated")
 async def send_email(request: Request):
     sender_addr = request.user.email
-    sender_name = request.user.name
+    sender_name = request.user.name if request.user.name else ""
     type = request.headers["case-type"]
     subject = f"[DEV BETA] SBL User Request for {type}" + (
         f" by {sender_name}" if sender_name else ""
@@ -74,7 +74,8 @@ async def send_email(request: Request):
     form_data = await request.form()
 
     body_lines = [f"{k}: {v}" for k, v in form_data.items()]
-    email_body = f"Contact Email: {sender_addr}\n\n"
+    email_body = f"Contact Email: {sender_addr}\n"
+    email_body += f"Contact Name: {sender_name}\n\n"
     email_body += "\n".join(body_lines)
 
     email = Email(subject, email_body, settings.from_addr, sender, to={settings.to})
