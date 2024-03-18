@@ -64,7 +64,7 @@ addopts = [
 
 [tool.coverage.run]
 relative_files = true
-source = ["regtech_mail_api"]
+source = ["src/regtech_mail_api"]
 
 [tool.coverage.report]
 skip_empty = true
