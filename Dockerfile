@@ -9,7 +9,7 @@ COPY poetry.lock pyproject.toml log-config.yml ./
 RUN poetry config virtualenvs.create false
 RUN poetry install
 
-COPY regtech_mail_api ./regtech_mail_api
+COPY src/ ./
 
 EXPOSE 8765
 

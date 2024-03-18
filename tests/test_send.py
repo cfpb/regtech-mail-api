@@ -11,7 +11,7 @@ from starlette.authentication import AuthCredentials
 
 @pytest.fixture
 def app_fixture(mocker: MockerFixture) -> FastAPI:
-    from api import app
+    from regtech_mail_api.api import app
 
     return app
 
@@ -58,7 +58,7 @@ class TestEmailApiSend:
         email_json = {
             "email": {
                 "subject": "[DEV BETA] SBL User Request for Institution Profile Change",
-                "body": "Contact Email: test@cfpb.gov\n\nlei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
+                "body": "Contact Email: test@cfpb.gov\nContact Name: \n\nlei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
                 "from_addr": "test@cfpb.gov",
                 "sender": "test@cfpb.gov",
                 "to": ["cases@localhost.localdomain"],
@@ -88,8 +88,8 @@ class TestEmailApiSend:
     ):
         email_json = {
             "email": {
-                "subject": "[DEV BETA] SBL User Request for Institution Profile Change by Test User",
-                "body": "Contact Email: test@cfpb.gov\n\nlei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
+                "subject": "[DEV BETA] SBL User Request for Institution Profile Change",
+                "body": "Contact Email: test@cfpb.gov\nContact Name: Test User\n\nlei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
                 "from_addr": "test@cfpb.gov",
                 "sender": "Test User <test@cfpb.gov>",
                 "to": ["cases@localhost.localdomain"],
