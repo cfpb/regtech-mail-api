@@ -65,9 +65,7 @@ async def send_email(request: Request):
     sender_addr = request.user.email
     sender_name = request.user.name if request.user.name else ""
     type = request.headers["case-type"]
-    subject = f"[DEV BETA] SBL User Request for {type}" + (
-        f" by {sender_name}" if sender_name else ""
-    )
+    subject = f"[DEV BETA] SBL User Request for {type}"
 
     sender = f"{sender_name} <{sender_addr}>" if sender_name else sender_addr
 
