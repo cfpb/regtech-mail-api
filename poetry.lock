@@ -946,7 +946,7 @@ name = "regtech-api-commons"
 version = "0.1.0"
 description = ""
 optional = false
-python-versions = "^3.11"
+python-versions = "^3.12"
 files = []
 develop = false
 
@@ -961,7 +961,7 @@ requests = "^2.31.0"
 type = "git"
 url = "https://github.com/cfpb/regtech-api-commons.git"
 reference = "HEAD"
-resolved_reference = "29356c630d2609cb81087ce35dd6c79512954d49"
+resolved_reference = "bd0e8a0a0beffc87a3ea40088dddd68cd8431d6c"
 
 [[package]]
 name = "requests"
