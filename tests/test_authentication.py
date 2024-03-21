@@ -11,7 +11,7 @@ from starlette.authentication import AuthCredentials, UnauthenticatedUser
 
 @pytest.fixture
 def app_fixture(mocker: MockerFixture) -> FastAPI:
-    from api import app
+    from regtech_mail_api.api import app
 
     return app
 
@@ -74,7 +74,7 @@ class TestEmailApiAuthentication:
             }
         }
 
-        mock = mocker.patch("api.send_email")
+        mock = mocker.patch("regtech_mail_api.api.send_email")
         mock.return_value = {"email": email_json}
         client = TestClient(app_fixture)
         res = client.get("/")
