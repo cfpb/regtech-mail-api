@@ -5,7 +5,7 @@ description = ""
 authors = ["CFPB's RegTech Team"]
 readme = "README.md"
 packages = [
-    { include = "regtech_mail_api" from = "src"}
+    { include = "regtech_mail_api", from = "src"}
 ]
 
 
