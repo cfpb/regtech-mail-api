@@ -2,13 +2,13 @@
 
 [Full report](https://htmlpreview.github.io/?https://github.com/cfpb/regtech-mail-api/blob/python-coverage-comment-action-data/htmlcov/index.html)
 
-| Name                           |    Stmts |     Miss |   Branch |   BrPart |   Cover |   Missing |
-|------------------------------- | -------: | -------: | -------: | -------: | ------: | --------: |
-| regtech\_mail\_api/api.py      |       42 |        3 |       18 |        3 |     90% |43, 52-53, 76->exit |
-| regtech\_mail\_api/mailer.py   |       28 |        8 |        6 |        0 |     65% | 13, 29-38 |
-| regtech\_mail\_api/models.py   |       23 |        2 |        6 |        2 |     86% |    23, 26 |
-| regtech\_mail\_api/settings.py |       27 |        0 |        8 |        0 |    100% |           |
-|                      **TOTAL** |  **120** |   **13** |   **38** |    **5** | **86%** |           |
+| Name                               |    Stmts |     Miss |   Branch |   BrPart |   Cover |   Missing |
+|----------------------------------- | -------: | -------: | -------: | -------: | ------: | --------: |
+| src/regtech\_mail\_api/api.py      |       43 |        3 |       16 |        2 |     92% | 43, 52-53 |
+| src/regtech\_mail\_api/mailer.py   |       28 |        8 |        6 |        0 |     65% | 13, 29-38 |
+| src/regtech\_mail\_api/models.py   |       23 |        2 |        6 |        2 |     86% |    23, 26 |
+| src/regtech\_mail\_api/settings.py |       27 |        0 |        8 |        0 |    100% |           |
+|                          **TOTAL** |  **121** |   **13** |   **36** |    **4** | **87%** |           |
 
 1 empty file skipped.
 
