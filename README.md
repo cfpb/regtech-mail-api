@@ -29,7 +29,7 @@ poetry run pytest
 
 ## API
 The API endpoints require authentication to access.  The service uses the [regtech-api-commons](https://github.com/cfpb/regtech-api-commons) library to utilize OAuth2 authentication, currently using Keycloak.
-To use either endpoint, you must first get an access token from Keycloak.  The service will then use the name and email attributes from the token to populate the Sender field in the email.
+To use either endpoint, you must first get an access token from Keycloak. The Contact Name and Email, derived from the Access Token, will be put into the body of the email.
 
 To get an access token, run the following curl command, using the Keycloak user you wish to test with (see [LOCAL_DEV_COMPOSE](https://github.com/cfpb/sbl-project/blob/main/LOCAL_DEV_COMPOSE.md) for launching Keycloak):
 
@@ -70,7 +70,6 @@ http://localhost:8765/send | jq '.'
     "subject": "Institution Profile Change",
     "body": "lei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
     "from_addr": "noreply@localhost.localdomain",
-    "sender": "<Keycloak user> <<Keycloak email>>",
     "to": [
       "cases@localhost.localdomain"
     ],

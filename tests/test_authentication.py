@@ -67,7 +67,6 @@ class TestEmailApiAuthentication:
                 "subject": "Institution Profile Change",
                 "body": "lei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
                 "from_addr": "test@cfpb.gov",
-                "sender": "Jane Doe <jane.doe@some.org>",
                 "to": ["cases@localhost.localdomain"],
                 "cc": None,
                 "bcc": None,

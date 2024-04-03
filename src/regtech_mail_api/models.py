@@ -7,7 +7,6 @@ class Email:
     subject: str
     body: str
     from_addr: str
-    sender: str
     to: set[str]
     cc: set[str] | None = None
     bcc: set[str] | None = None
@@ -16,7 +15,6 @@ class Email:
         message = EmailMessage()
         message["Subject"] = self.subject
         message["From"] = self.from_addr
-        message["Sender"] = self.sender
         message["To"] = ",".join(self.to)
 
         if self.cc:
