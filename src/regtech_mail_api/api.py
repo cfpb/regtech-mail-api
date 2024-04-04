@@ -67,8 +67,6 @@ async def send_email(request: Request):
     type = request.headers["case-type"]
     subject = f"[DEV BETA] SBL User Request for {type}"
 
-    sender = f"{sender_name} <{sender_addr}>" if sender_name else sender_addr
-
     form_data = await request.form()
 
     body_lines = [f"{k}: {v}" for k, v in form_data.items()]
@@ -76,7 +74,7 @@ async def send_email(request: Request):
     email_body += f"Contact Name: {sender_name}\n\n"
     email_body += "\n".join(body_lines)
 
-    email = Email(subject, email_body, settings.from_addr, sender, to={settings.to})
+    email = Email(subject, email_body, settings.from_addr, to={settings.to})
 
     mailer.send(email)
 
