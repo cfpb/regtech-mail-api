@@ -1,4 +1,4 @@
-FROM python:3.12-alpine
+FROM ghcr.io/cfpb/regtech/sbl/python-alpine:3.12
 
 WORKDIR /usr/app/src
 
