@@ -30,4 +30,4 @@ phases:
       - docker build -t $REGISTRY_IMAGE_NAME .
       - scan-image $REGISTRY_IMAGE_NAME $IMAGE_SCAN_EMAIL_TO
       - docker push $REGISTRY_IMAGE_NAME
-      
+      - echo "Image ${REGISTRY_IMAGE_NAME} now available for use. Enjoy!"
