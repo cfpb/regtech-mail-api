@@ -17,7 +17,7 @@ env:
 phases:
   install:
     commands:
-      - codebuild-init && && source ./env.sh
+      - codebuild-init && source ./env.sh
   pre_build:
     commands:
       # Set envvars dependent on CodeBuild project's own envvars
