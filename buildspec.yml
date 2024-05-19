@@ -1,0 +1,33 @@
+version: 0.2
+
+env:
+  variables:
+    IMAGE_SCAN_EMAIL_TO: noreply@cfpb.gov
+    IMAGE_SCANNER_SECRET: cfpb/team/regtech/twistlock
+    SMTP_CREDS_SECRET: cfpb/team/regtech/smtp-ses-creds
+  secrets-manager:
+    IMAGE_SCANNER_URL: "${IMAGE_SCANNER_SECRET}:TL_CONSOLE_URL"
+    IMAGE_SCANNER_USERNAME: "${IMAGE_SCANNER_SECRET}:TL_USER"
+    IMAGE_SCANNER_PASSWORD: "${IMAGE_SCANNER_SECRET}:TL_PASSWORD"
+    SMTP_PASSWORD: "${SMTP_CREDS_SECRET}:password"
+    SMTP_PORT: "${SMTP_CREDS_SECRET}:smtp_port"
+    SMTP_HOST: "${SMTP_CREDS_SECRET}:smtp_server"
+    SMTP_USERNAME: "${SMTP_CREDS_SECRET}:username"
+
+phases:
+  install:
+    commands:
+      - codebuild-init && && source ./env.sh
+  pre_build:
+    commands:
+      # Set envvars dependent on CodeBuild project's own envvars
+      - export IMAGE_NAME="cfpb/${NAMESPACE}/regtech-mail-api"
+      - export IMAGE_TAG=$GIT_REF
+      - export REGISTRY_IMAGE_NAME="${ECR_ACCOUNT_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
+      - env | sort
+  build:
+    commands:
+      - docker build -t $REGISTRY_IMAGE_NAME .
+      - scan-image $REGISTRY_IMAGE_NAME $IMAGE_SCAN_EMAIL_TO
+      - docker push $REGISTRY_IMAGE_NAME
+      
