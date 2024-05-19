@@ -22,7 +22,7 @@ phases:
     commands:
       # Set envvars dependent on CodeBuild project's own envvars
       - export IMAGE_NAME="cfpb/${NAMESPACE}/regtech-mail-api"
-      - export IMAGE_TAG=$GIT_REF
+      - export IMAGE_TAG=$GIT_REF_NAME
       - export REGISTRY_IMAGE_NAME="${ECR_ACCOUNT_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
       - env | sort
   build:
