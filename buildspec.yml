@@ -2,6 +2,7 @@ version: 0.2
 
 env:
   variables:
+    SERVICE_NAME: regtech-mail-api
     IMAGE_SCAN_EMAIL_TO: noreply@cfpb.gov
     IMAGE_SCANNER_SECRET: cfpb/team/regtech/twistlock
     SMTP_CREDS_SECRET: cfpb/team/regtech/smtp-ses-creds
@@ -21,8 +22,8 @@ phases:
   pre_build:
     commands:
       # Set envvars dependent on CodeBuild project's own envvars
-      - export IMAGE_NAME="cfpb/${NAMESPACE}/regtech-mail-api"
-      - export IMAGE_TAG=$GIT_REF_NAME
+      - export IMAGE_NAME="cfpb/${NAMESPACE}/${SERVICE_NAME}"
+      - export IMAGE_TAG=$GIT_REF
       - export REGISTRY_IMAGE_NAME="${ECR_ACCOUNT_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
       - env | sort
   build:
