@@ -1,6 +1,6 @@
 version: 0.2
 
-# Temp change to trigger job...again...again...again...
+# Temp change to trigger job...again...again...again...again...
 env:
   variables:
     SERVICE_NAME: regtech-mail-api
