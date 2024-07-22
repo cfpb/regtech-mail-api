@@ -13,4 +13,6 @@ COPY src/ ./
 
 EXPOSE 8765
 
+USER sbl
+
 CMD ["uvicorn", "regtech_mail_api.api:app", "--host", "0.0.0.0", "--port", "8765", "--log-config", "log-config.yml"]
