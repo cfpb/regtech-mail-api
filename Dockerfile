@@ -6,12 +6,12 @@ WORKDIR /usr/app/src
 
 RUN pip install poetry
 
-COPY poetry.lock pyproject.toml log-config.yml ./
+COPY --chown=sbl:sbl poetry.lock pyproject.toml log-config.yml ./
 
 RUN poetry config virtualenvs.create false
 RUN poetry install
 
-COPY src/ ./
+COPY --chown=sbl:sbl src/ ./
 
 EXPOSE 8765
 
