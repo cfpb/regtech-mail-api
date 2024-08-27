@@ -65,7 +65,15 @@ async def send_email(request: Request):
     sender_addr = request.user.email
     sender_name = request.user.name if request.user.name else ""
     type = request.headers["case-type"]
-    subject = f"[DEV BETA] SBL User Request for {type}"
+
+    header = "[BETA]"
+    if "cfpb" in sender_addr:
+        header = "[CFPB BETA]"
+    if settings.environment:
+        if settings.environment == "DEV":
+            header = "[DEV BETA]"
+
+    subject = f"{header} SBL User Request for {type}"
 
     form_data = await request.form()
 
