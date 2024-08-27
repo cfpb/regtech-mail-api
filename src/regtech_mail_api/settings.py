@@ -11,6 +11,7 @@ class EmailMailerType(str, Enum):
 
 
 class EmailApiSettings(BaseSettings):
+    environment: str = ""
     email_mailer: EmailMailerType = EmailMailerType.SMTP
     smtp_host: str | None = None
     smtp_port: int = 0
