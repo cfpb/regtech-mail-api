@@ -70,8 +70,7 @@ async def send_email(request: Request):
     if "cfpb" in sender_addr:
         header = "[CFPB BETA]"
     if settings.environment:
-        if settings.environment == "DEV":
-            header = "[DEV BETA]"
+        header = f"[{settings.environment}]"
 
     subject = f"{header} SBL User Request for {type}"
 
