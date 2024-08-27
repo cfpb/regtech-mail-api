@@ -67,7 +67,7 @@ async def send_email(request: Request):
     type = request.headers["case-type"]
 
     header = "[BETA]"
-    if "cfpb" in sender_addr:
+    if "cfpb" in sender_addr.lower().split("@")[-1]:
         header = "[CFPB BETA]"
     if settings.environment:
         header = f"[{settings.environment}]"
