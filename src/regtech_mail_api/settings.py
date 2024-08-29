@@ -1,6 +1,7 @@
 from enum import Enum
-from pydantic import EmailStr, SecretStr, model_validator
+from pydantic import Field, EmailStr, SecretStr, model_validator
 from pydantic_settings import BaseSettings
+from typing_extensions import Annotated
 
 from regtech_api_commons.oauth2.config import KeycloakSettings
 
@@ -18,7 +19,12 @@ class EmailApiSettings(BaseSettings):
     smtp_username: SecretStr | None = None
     smtp_password: SecretStr | None = None
     smtp_use_tls: bool = False
-    from_addr: EmailStr
+    from_addr: Annotated[
+        EmailStr,
+        Field(
+            deprecated="from_addr is deprecated and will be removed.  The contact email is now used as the From: address."
+        ),
+    ]
     to: EmailStr
     cc: set[EmailStr] | None = None
     bcc: set[EmailStr] | None = None

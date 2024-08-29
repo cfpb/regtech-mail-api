@@ -26,7 +26,7 @@ def auth_mock(mocker: MockerFixture) -> Mock:
 @pytest.fixture
 def user_no_profile_mock(auth_mock: Mock) -> Mock:
     claims = {
-        "email": "test@cfpb.gov",
+        "email": "test_no_profile@cfpb.gov",
         "preferred_username": "testuser",
     }
     auth_mock.return_value = (
@@ -41,7 +41,7 @@ def full_user_mock(auth_mock: Mock) -> Mock:
     claims = {
         "name": "Test User",
         "preferred_username": "testuser",
-        "email": "test@cfpb.gov",
+        "email": "testuser@cfpb.gov",
     }
     auth_mock.return_value = (
         AuthCredentials(["authenticated"]),
@@ -58,8 +58,8 @@ class TestEmailApiSend:
         email_json = {
             "email": {
                 "subject": "[CFPB BETA] SBL User Request for Institution Profile Change",
-                "body": "Contact Email: test@cfpb.gov\nContact Name: \n\nlei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
-                "from_addr": "test@cfpb.gov",
+                "body": "Contact Email: test_no_profile@cfpb.gov\nContact Name: \n\nlei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
+                "from_addr": "test_no_profile@cfpb.gov",
                 "to": ["cases@localhost.localdomain"],
                 "cc": None,
                 "bcc": None,
@@ -88,8 +88,8 @@ class TestEmailApiSend:
         email_json = {
             "email": {
                 "subject": "[CFPB BETA] SBL User Request for Institution Profile Change",
-                "body": "Contact Email: test@cfpb.gov\nContact Name: Test User\n\nlei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
-                "from_addr": "test@cfpb.gov",
+                "body": "Contact Email: testuser@cfpb.gov\nContact Name: Test User\n\nlei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
+                "from_addr": "testuser@cfpb.gov",
                 "to": ["cases@localhost.localdomain"],
                 "cc": None,
                 "bcc": None,

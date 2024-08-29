@@ -81,7 +81,7 @@ async def send_email(request: Request):
     email_body += f"Contact Name: {sender_name}\n\n"
     email_body += "\n".join(body_lines)
 
-    email = Email(subject, email_body, settings.from_addr, to={settings.to})
+    email = Email(subject, email_body, sender_addr, to={settings.to})
 
     mailer.send(email)
 
