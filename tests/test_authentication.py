@@ -49,7 +49,7 @@ class TestEmailApiAuthentication:
         self, mocker: MockerFixture, app_fixture: FastAPI, unauthed_user_mock: Mock
     ):
         client = TestClient(app_fixture)
-        res = client.get("/")
+        res = client.get("/welcome")
         assert res.status_code == 403
 
         client = TestClient(app_fixture)
@@ -76,5 +76,5 @@ class TestEmailApiAuthentication:
         mock = mocker.patch("regtech_mail_api.api.send_email")
         mock.return_value = {"email": email_json}
         client = TestClient(app_fixture)
-        res = client.get("/")
+        res = client.get("/welcome")
         assert res.status_code == 200
