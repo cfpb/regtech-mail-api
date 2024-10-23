@@ -9,6 +9,7 @@ from regtech_mail_api.settings import EmailApiSettings, EmailMailerType, kc_sett
 from starlette.authentication import requires
 from starlette.middleware.authentication import AuthenticationMiddleware
 
+from regtech_api_commons.api.router_wrapper import Router
 from regtech_api_commons.oauth2.oauth2_backend import BearerTokenAuthBackend
 from regtech_api_commons.oauth2.oauth2_admin import OAuth2Admin
 
@@ -32,6 +33,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+router = Router()
 
 # FIXME: Come up with a better way of handling these settings
 #        without having to do all the `type: ignore`s
@@ -53,13 +55,13 @@ match settings.email_mailer:
         raise ValueError(f"Mailer type {settings.email_mailer} not supported")
 
 
-@app.get("/")
+@router.get("/welcome")
 @requires("authenticated")
 def read_root(request: Request):
     return {"message": "Welcome to the Email API"}
 
 
-@app.post("/send")
+@router.post("/send")
 @requires("authenticated")
 async def send_email(request: Request):
     sender_addr = request.user.email
@@ -86,3 +88,6 @@ async def send_email(request: Request):
     mailer.send(email)
 
     return {"email": email}
+
+
+app.include_router(router)
