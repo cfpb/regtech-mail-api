@@ -4,11 +4,11 @@
 
 | Name                               |    Stmts |     Miss |   Branch |   BrPart |   Cover |   Missing |
 |----------------------------------- | -------: | -------: | -------: | -------: | ------: | --------: |
-| src/regtech\_mail\_api/api.py      |       47 |        4 |       20 |        4 |     88% |43, 52-53, 70->72, 73 |
-| src/regtech\_mail\_api/mailer.py   |       28 |        8 |        6 |        0 |     65% | 13, 29-38 |
-| src/regtech\_mail\_api/models.py   |       21 |        2 |        6 |        2 |     85% |    21, 24 |
-| src/regtech\_mail\_api/settings.py |       28 |        0 |        8 |        0 |    100% |           |
-|                          **TOTAL** |  **124** |   **14** |   **40** |    **6** | **85%** |           |
+| src/regtech\_mail\_api/api.py      |       50 |        4 |        8 |        4 |     86% |45, 54-55, 72->74, 75 |
+| src/regtech\_mail\_api/mailer.py   |       28 |        8 |        4 |        0 |     62% | 13, 29-38 |
+| src/regtech\_mail\_api/models.py   |       21 |        2 |        4 |        2 |     84% |    21, 24 |
+| src/regtech\_mail\_api/settings.py |       28 |        0 |        6 |        0 |    100% |           |
+|                          **TOTAL** |  **127** |   **14** |   **22** |    **6** | **84%** |           |
 
 1 empty file skipped.
 
