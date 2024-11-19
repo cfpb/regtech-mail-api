@@ -116,8 +116,6 @@ class TestEmailApiSend:
         self, mocker: MockerFixture, app_fixture: FastAPI, full_user_mock: Mock
     ):
         client = TestClient(app_fixture)
-        res = client.post(
-            "/internal/confirmation/send"
-        )
+        res = client.post("/internal/confirmation/send")
         assert res.status_code == 200
         assert res.json() == "Called internal send"

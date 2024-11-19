@@ -55,14 +55,12 @@ class TestEmailApiAuthentication:
         )
         assert res.status_code == 403
 
-        res = client.post(
-            "/internal/confirmation/send"
-        )
+        res = client.post("/internal/confirmation/send")
         assert res.status_code == 200
 
     def test_authed_endpoints(
         self, mocker: MockerFixture, app_fixture: FastAPI, authed_user_mock: Mock
-    ):      
+    ):
         client = TestClient(app_fixture)
         res = client.post(
             "/public/case/send",
