@@ -2,9 +2,9 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2AuthorizationCodeBearer
 
-from regtech_mail_api.mailer import Mailer, MockMailer, SmtpMailer
 from regtech_mail_api.models import Email
-from regtech_mail_api.settings import EmailApiSettings, EmailMailerType, kc_settings
+from regtech_mail_api.settings import kc_settings, EmailApiSettings
+from regtech_mail_api.mailer import create_mailer
 
 from starlette.authentication import requires
 from starlette.middleware.authentication import AuthenticationMiddleware
@@ -33,26 +33,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+settings = EmailApiSettings()
+
 router = Router()
-
-# FIXME: Come up with a better way of handling these settings
-#        without having to do all the `type: ignore`s
-settings = EmailApiSettings()  # type: ignore
-mailer: Mailer
-
-match settings.email_mailer:
-    case EmailMailerType.SMTP:
-        mailer = SmtpMailer(
-            settings.smtp_host,  # type: ignore
-            settings.smtp_port,
-            settings.smtp_username.get_secret_value() if settings.smtp_username else None,  # type: ignore
-            settings.smtp_password.get_secret_value() if settings.smtp_password else None,  # type: ignore
-            settings.smtp_use_tls,
-        )
-    case EmailMailerType.MOCK:
-        mailer = MockMailer()
-    case _:
-        raise ValueError(f"Mailer type {settings.email_mailer} not supported")
 
 
 @router.get("/welcome")
@@ -85,7 +68,7 @@ async def send_email(request: Request):
 
     email = Email(subject, email_body, settings.from_addr, to={settings.to})
 
-    mailer.send(email)
+    create_mailer().send(email)
 
     return {"email": email}
 
