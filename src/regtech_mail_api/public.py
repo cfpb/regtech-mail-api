@@ -5,7 +5,7 @@ from regtech_api_commons.api.router_wrapper import Router
 
 from regtech_mail_api.settings import EmailApiSettings
 from regtech_mail_api.models import Email
-from regtech_mail_api.mailer import create_mailer
+from regtech_mail_api.mailer import create_mailer, get_header
 
 settings = EmailApiSettings()
 
@@ -19,13 +19,7 @@ async def send_email(request: Request):
     sender_name = request.user.name if request.user.name else ""
     type = request.headers["case-type"]
 
-    header = "[BETA]"
-    if "cfpb" in sender_addr.lower().split("@")[-1]:
-        header = "[CFPB BETA]"
-    if settings.environment:
-        header = f"[{settings.environment}]"
-
-    subject = f"{header} SBL User Request for {type}"
+    subject = f"{get_header(sender_addr)} SBL User Request for {type}"
 
     form_data = await request.form()
 
