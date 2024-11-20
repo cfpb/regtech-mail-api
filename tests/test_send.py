@@ -68,7 +68,7 @@ class TestEmailApiSend:
 
         client = TestClient(app_fixture)
         res = client.post(
-            "/send",
+            "/public/case/send",
             headers={
                 "case-type": "Institution Profile Change",
             },
@@ -82,7 +82,7 @@ class TestEmailApiSend:
         assert res.status_code == 200
         assert res.json() == email_json
 
-    def test_send(
+    def test_case_send(
         self, mocker: MockerFixture, app_fixture: FastAPI, full_user_mock: Mock
     ):
         email_json = {
@@ -98,7 +98,7 @@ class TestEmailApiSend:
 
         client = TestClient(app_fixture)
         res = client.post(
-            "/send",
+            "/public/case/send",
             headers={
                 "case-type": "Institution Profile Change",
             },
@@ -111,3 +111,11 @@ class TestEmailApiSend:
         )
         assert res.status_code == 200
         assert res.json() == email_json
+
+    def test_confirmation_send(
+        self, mocker: MockerFixture, app_fixture: FastAPI, full_user_mock: Mock
+    ):
+        client = TestClient(app_fixture)
+        res = client.post("/internal/confirmation/send")
+        assert res.status_code == 200
+        assert res.json() == "Called internal send"

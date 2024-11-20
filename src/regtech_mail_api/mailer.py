@@ -5,6 +5,7 @@ import smtplib
 import ssl
 
 from regtech_mail_api.models import Email
+from regtech_mail_api.settings import EmailApiSettings, EmailMailerType
 
 
 class Mailer(ABC):
@@ -44,3 +45,24 @@ class MockMailer(Mailer):
         print("--- Message Start ---")
         print(message.to_email_message())
         print("--- Message End ---")
+
+
+def create_mailer():
+    settings = EmailApiSettings()  # type: ignore
+    mailer: Mailer
+
+    match settings.email_mailer:
+        case EmailMailerType.SMTP:
+            mailer = SmtpMailer(
+                settings.smtp_host,  # type: ignore
+                settings.smtp_port,
+                settings.smtp_username.get_secret_value() if settings.smtp_username else None,  # type: ignore
+                settings.smtp_password.get_secret_value() if settings.smtp_password else None,  # type: ignore
+                settings.smtp_use_tls,
+            )
+        case EmailMailerType.MOCK:
+            mailer = MockMailer()
+        case _:
+            raise ValueError(f"Mailer type {settings.email_mailer} not supported")
+
+    return mailer

@@ -49,32 +49,30 @@ class TestEmailApiAuthentication:
         self, mocker: MockerFixture, app_fixture: FastAPI, unauthed_user_mock: Mock
     ):
         client = TestClient(app_fixture)
-        res = client.get("/welcome")
-        assert res.status_code == 403
-
-        client = TestClient(app_fixture)
         res = client.post(
-            "/send",
+            "/public/case/send",
             json={"data": "data"},
         )
         assert res.status_code == 403
 
+        res = client.post("/internal/confirmation/send")
+        assert res.status_code == 200
+
     def test_authed_endpoints(
         self, mocker: MockerFixture, app_fixture: FastAPI, authed_user_mock: Mock
     ):
-        email_json = {
-            "email": {
-                "subject": "Institution Profile Change",
-                "body": "lei: 1234567890ABCDEFGHIJ\ninstitution_name_1: Fintech 1\ntin_1: 12-3456789\nrssd_1: 1234567",
-                "from_addr": "test@cfpb.gov",
-                "to": ["cases@localhost.localdomain"],
-                "cc": None,
-                "bcc": None,
-            }
-        }
-
-        mock = mocker.patch("regtech_mail_api.api.send_email")
-        mock.return_value = {"email": email_json}
         client = TestClient(app_fixture)
-        res = client.get("/welcome")
+        res = client.post(
+            "/public/case/send",
+            headers={
+                "case-type": "Institution Profile Change",
+            },
+            data={
+                "lei": "1234567890ABCDEFGHIJ",
+                "institution_name_1": "Fintech 1",
+                "tin_1": "12-3456789",
+                "rssd_1": "1234567",
+            },
+        )
+        client = TestClient(app_fixture)
         assert res.status_code == 200
