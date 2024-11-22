@@ -1,3 +1,4 @@
+import json
 import pytest
 
 from fastapi import FastAPI
@@ -55,7 +56,18 @@ class TestEmailApiAuthentication:
         )
         assert res.status_code == 403
 
-        res = client.post("/internal/confirmation/send")
+        res = client.post(
+            "/internal/confirmation/send",
+            data=json.dumps(
+                {
+                    "confirmation_id": "test",
+                    "signer_email": "test@cfpb.gov",
+                    "signer_name": "Test User",
+                    "contact_email": "test_contact@cfpb.gov",
+                    "timestamp": 1732128696,
+                }
+            ),
+        )
         assert res.status_code == 200
 
     def test_authed_endpoints(

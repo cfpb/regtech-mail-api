@@ -66,3 +66,13 @@ def create_mailer():
             raise ValueError(f"Mailer type {settings.email_mailer} not supported")
 
     return mailer
+
+
+def get_header(email):
+    settings = EmailApiSettings()  # type: ignore
+    header = "[BETA]"
+    if "cfpb" in email.lower().split("@")[-1]:
+        header = "[CFPB BETA]"
+    if settings.environment:
+        header = f"[{settings.environment}]"
+    return header
