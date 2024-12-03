@@ -4,7 +4,7 @@ import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from pytest_mock import MockerFixture
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from regtech_api_commons.models.auth import AuthenticatedUser
 from starlette.authentication import AuthCredentials
@@ -131,13 +131,43 @@ class TestEmailApiSend:
         )
 
         expected_email = {
-            "subject": "[CFPB BETA] Small Business Lending Data Filing Confirmation",
-            "body": "\nCongratulations! This email confirms that the filing submitted by Test User on November 20, 2024 at 1:51 PM EST was successful. The confirmation number is test.\n\nTo make any changes to the filing, please return to the Small Business Lending Data Filing Platform and follow the provided instructions. If you have any questions or need additional support, email our support staff at sblhelp@cfpb.gov.\n",
+            "subject": "[BETA] Small Business Lending Data Filing Confirmation",
+            "body": "\nCongratulations! This email confirms that the filing submitted by Test User on November 20, 2024 at 1:51 PM EST was successful. The confirmation number is test.\n\nThe beta platform is for testing purposes only and user-supplied data may be removed at any time. Take a moment to email our support staff at sblhelp@cfpb.gov with your feedback or upload a new file to continue testing.\n",
             "from_addr": "test@cfpb.gov",
-            "to": ["test_contact@cfpb.gov", "test@cfpb.gov"],
+            "to": ["test@cfpb.gov"],
             "cc": None,
             "bcc": None,
         }
 
         assert res.status_code == 200
         assert res.json()["email"] == expected_email
+
+        mock_settings = mocker.MagicMock()
+
+        with patch("regtech_mail_api.internal.settings") as mock_settings:
+            mock_settings.environment = "PROD"
+            mock_settings.from_addr = "test@cfpb.gov"
+            expected_email = {
+                "subject": "Small Business Lending Data Filing Confirmation",
+                "body": "\nCongratulations! This email confirms that the filing submitted by Test User on November 20, 2024 at 1:51 PM EST was successful. The confirmation number is test.\n\nTo make any changes to the filing, please return to the Small Business Lending Data Filing Platform and follow the provided instructions. If you have any questions or need additional support, email our support staff at sblhelp@cfpb.gov.\n",
+                "from_addr": "test@cfpb.gov",
+                "to": ["test_contact@cfpb.gov", "test@cfpb.gov"],
+                "cc": None,
+                "bcc": None,
+            }
+
+            res = client.post(
+                "/internal/confirmation/send",
+                data=json.dumps(
+                    {
+                        "confirmation_id": "test",
+                        "signer_email": "test@cfpb.gov",
+                        "signer_name": "Test User",
+                        "contact_email": "test_contact@cfpb.gov",
+                        "timestamp": 1732128696,
+                    }
+                ),
+            )
+
+            assert res.status_code == 200
+            assert res.json()["email"] == expected_email

@@ -75,4 +75,6 @@ def get_header(email):
         header = "[CFPB BETA]"
     if settings.environment:
         header = f"[{settings.environment}]"
+        if settings.environment == "PROD":
+            header = ""
     return header
