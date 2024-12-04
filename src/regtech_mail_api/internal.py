@@ -14,6 +14,16 @@ settings = EmailApiSettings()
 
 router = Router()
 
+custom_months = {
+    "January": "Jan.",
+    "February": "Feb.",
+    "August": "Aug.",
+    "September": "Sept.",
+    "October": "Oct.",
+    "November": "Nov.",
+    "December": "Dec.",
+}
+
 
 class ConfirmationRequest(BaseModel):
     model_config = ConfigDict(from_attributes=True)
@@ -44,7 +54,12 @@ async def send_email(request: Request, confirmation_request: ConfirmationRequest
     timestamp_est = confirmation_request.timestamp.astimezone(
         ZoneInfo("America/New_York")
     )
-    formatted_date = timestamp_est.strftime("%B %d, %Y at %-I:%M %p %Z")
+    full_month = timestamp_est.strftime("%B")
+    formatted_month = custom_months.get(full_month, full_month)
+    am_pm = "a.m." if timestamp_est.strftime("%p") == "AM" else "p.m."
+    formatted_date = (
+        f"{formatted_month} {timestamp_est.strftime("%d, %Y at %-I:%M")} {am_pm} EST"
+    )
     body_template = (
         prod_body_template if settings.environment == "PROD" else beta_body_template
     )
