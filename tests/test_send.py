@@ -9,7 +9,7 @@ from unittest.mock import Mock, patch
 from regtech_api_commons.models.auth import AuthenticatedUser
 from starlette.authentication import AuthCredentials
 
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 @pytest.fixture
@@ -127,14 +127,17 @@ class TestEmailApiSend:
                     "signer_email": "test@cfpb.gov",
                     "signer_name": "Test User",
                     "contact_email": "test_contact@cfpb.gov",
-                    "timestamp": datetime(2024, 3, 15, 8, 10).timestamp() * 1000,
+                    "timestamp": datetime(
+                        2024, 3, 15, 10, 10, tzinfo=timezone.utc
+                    ).timestamp()
+                    * 1000,
                 }
             ),
         )
 
         expected_email = {
             "subject": "[BETA] Small Business Lending Data Filing Confirmation",
-            "body": "\nCongratulations! This email confirms that the filing submitted by Test User on March 15, 2024 at 10:10 a.m. EST was successful. The confirmation number is test.\n\nThe beta platform is for testing purposes only and user-supplied data may be removed at any time. Take a moment to email our support staff at sblhelp@cfpb.gov with your feedback or return to the beta platform and upload a new file to continue testing.\n",
+            "body": "\nCongratulations! This email confirms that the filing submitted by Test User on March 15, 2024 at 6:10 a.m. EST was successful. The confirmation number is test.\n\nThe beta platform is for testing purposes only and user-supplied data may be removed at any time. Take a moment to email our support staff at sblhelp@cfpb.gov with your feedback or return to the beta platform and upload a new file to continue testing.\n",
             "from_addr": "test@cfpb.gov",
             "to": ["test@cfpb.gov"],
             "cc": None,
@@ -152,14 +155,17 @@ class TestEmailApiSend:
                     "signer_email": "test@cfpb.gov",
                     "signer_name": "Test User",
                     "contact_email": "test_contact@cfpb.gov",
-                    "timestamp": datetime(2024, 9, 15, 13, 10).timestamp() * 1000,
+                    "timestamp": datetime(
+                        2024, 9, 15, 17, 10, tzinfo=timezone.utc
+                    ).timestamp()
+                    * 1000,
                 }
             ),
         )
 
         expected_email = {
             "subject": "[BETA] Small Business Lending Data Filing Confirmation",
-            "body": "\nCongratulations! This email confirms that the filing submitted by Test User on Sept. 15, 2024 at 3:10 p.m. EST was successful. The confirmation number is test.\n\nThe beta platform is for testing purposes only and user-supplied data may be removed at any time. Take a moment to email our support staff at sblhelp@cfpb.gov with your feedback or return to the beta platform and upload a new file to continue testing.\n",
+            "body": "\nCongratulations! This email confirms that the filing submitted by Test User on Sept. 15, 2024 at 1:10 p.m. EST was successful. The confirmation number is test.\n\nThe beta platform is for testing purposes only and user-supplied data may be removed at any time. Take a moment to email our support staff at sblhelp@cfpb.gov with your feedback or return to the beta platform and upload a new file to continue testing.\n",
             "from_addr": "test@cfpb.gov",
             "to": ["test@cfpb.gov"],
             "cc": None,
