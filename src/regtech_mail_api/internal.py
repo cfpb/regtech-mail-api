@@ -8,11 +8,21 @@ from regtech_api_commons.api.router_wrapper import Router
 
 from regtech_mail_api.settings import EmailApiSettings
 from regtech_mail_api.models import Email
-from regtech_mail_api.mailer import create_mailer, get_header
+from regtech_mail_api.mailer import create_mailer
 
 settings = EmailApiSettings()
 
 router = Router()
+
+custom_months = {
+    "January": "Jan.",
+    "February": "Feb.",
+    "August": "Aug.",
+    "September": "Sept.",
+    "October": "Oct.",
+    "November": "Nov.",
+    "December": "Dec.",
+}
 
 
 class ConfirmationRequest(BaseModel):
@@ -24,10 +34,16 @@ class ConfirmationRequest(BaseModel):
     confirmation_id: str
 
 
-body_template = """
+prod_body_template = """
     Congratulations! This email confirms that the filing submitted by {signer_name} on {formatted_date} was successful. The confirmation number is {confirmation_id}.
 
     To make any changes to the filing, please return to the Small Business Lending Data Filing Platform and follow the provided instructions. If you have any questions or need additional support, email our support staff at sblhelp@cfpb.gov.
+"""
+
+beta_body_template = """
+    Congratulations! This email confirms that the filing submitted by {signer_name} on {formatted_date} was successful. The confirmation number is {confirmation_id}.
+
+    The beta platform is for testing purposes only and user-supplied data may be removed at any time. Take a moment to email our support staff at sblhelp@cfpb.gov with your feedback or return to the beta platform and upload a new file to continue testing.
 """
 
 
@@ -38,7 +54,15 @@ async def send_email(request: Request, confirmation_request: ConfirmationRequest
     timestamp_est = confirmation_request.timestamp.astimezone(
         ZoneInfo("America/New_York")
     )
-    formatted_date = timestamp_est.strftime("%B %d, %Y at %-I:%M %p %Z")
+    full_month = timestamp_est.strftime("%B")
+    formatted_month = custom_months.get(full_month, full_month)
+    am_pm = "a.m." if timestamp_est.strftime("%p") == "AM" else "p.m."
+    formatted_date = (
+        f"{formatted_month} {timestamp_est.strftime("%d, %Y at %-I:%M")} {am_pm} EST"
+    )
+    body_template = (
+        prod_body_template if settings.environment == "PROD" else beta_body_template
+    )
     body_text = dedent(
         body_template.format(
             signer_name=confirmation_request.signer_name,
@@ -47,9 +71,14 @@ async def send_email(request: Request, confirmation_request: ConfirmationRequest
         )
     )
 
-    to_list = [confirmation_request.contact_email, confirmation_request.signer_email]
+    to_list = (
+        [confirmation_request.contact_email, confirmation_request.signer_email]
+        if settings.environment == "PROD"
+        else [confirmation_request.signer_email]
+    )
+    header = "" if settings.environment == "PROD" else "[BETA] "
     email = Email(
-        f"{get_header(confirmation_request.signer_email)} Small Business Lending Data Filing Confirmation",
+        f"{header}Small Business Lending Data Filing Confirmation",
         body_text,
         settings.from_addr,
         to=to_list,
