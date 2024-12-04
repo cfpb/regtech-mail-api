@@ -132,7 +132,7 @@ class TestEmailApiSend:
 
         expected_email = {
             "subject": "[BETA] Small Business Lending Data Filing Confirmation",
-            "body": "\nCongratulations! This email confirms that the filing submitted by Test User on November 20, 2024 at 1:51 PM EST was successful. The confirmation number is test.\n\nThe beta platform is for testing purposes only and user-supplied data may be removed at any time. Take a moment to email our support staff at sblhelp@cfpb.gov with your feedback or upload a new file to continue testing.\n",
+            "body": "\nCongratulations! This email confirms that the filing submitted by Test User on November 20, 2024 at 1:51 PM EST was successful. The confirmation number is test.\n\nThe beta platform is for testing purposes only and user-supplied data may be removed at any time. Take a moment to email our support staff at sblhelp@cfpb.gov with your feedback or return to the beta platform and upload a new file to continue testing.\n",
             "from_addr": "test@cfpb.gov",
             "to": ["test@cfpb.gov"],
             "cc": None,

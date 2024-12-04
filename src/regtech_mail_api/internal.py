@@ -33,7 +33,7 @@ prod_body_template = """
 beta_body_template = """
     Congratulations! This email confirms that the filing submitted by {signer_name} on {formatted_date} was successful. The confirmation number is {confirmation_id}.
 
-    The beta platform is for testing purposes only and user-supplied data may be removed at any time. Take a moment to email our support staff at sblhelp@cfpb.gov with your feedback or upload a new file to continue testing.
+    The beta platform is for testing purposes only and user-supplied data may be removed at any time. Take a moment to email our support staff at sblhelp@cfpb.gov with your feedback or return to the beta platform and upload a new file to continue testing.
 """
 
 
