@@ -13,7 +13,7 @@ packages = [
 python = "^3.12"
 pyyaml = "^6.0.1"
 email-validator = "^2.1.0.post1"
-python-multipart = "^0.0.7"
+python-multipart = "^0.0.18"
 regtech-api-commons = {git = "https://github.com/cfpb/regtech-api-commons.git"}
 
 
