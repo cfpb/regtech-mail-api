@@ -35,15 +35,15 @@ class ConfirmationRequest(BaseModel):
 
 
 prod_body_template = """
-    Congratulations! This email confirms that the filing submitted by {signer_name} on {formatted_date} was successful. The confirmation number is {confirmation_id}.
+    Congratulations! This email confirms that {signer_name} submitted a filing on {formatted_date} was successful. The confirmation number for this filing is {confirmation_id}.
 
-    To make any changes to the filing, please return to the Small Business Lending Data Filing Platform and follow the provided instructions. If you have any questions or need additional support, email our support staff at sblhelp@cfpb.gov.
+    If you have any questions or need additional support, email our support staff at sblhelp@cfpb.gov.
 """
 
 beta_body_template = """
-    Congratulations! This email confirms that the filing submitted by {signer_name} on {formatted_date} was successful. The confirmation number is {confirmation_id}.
+    Congratulations! This email confirms that {signer_name} submitted a filing on {formatted_date} was successful. The confirmation number for this filing is {confirmation_id}.
 
-    The beta platform is for testing purposes only and user-supplied data may be removed at any time. Take a moment to email our support staff at sblhelp@cfpb.gov with your feedback or return to the beta platform and upload a new file to continue testing.
+    The beta platform is for testing purposes only and user-supplied data may be removed at any time. Email our support staff at sblhelp@cfpb.gov to share feedback or upload a new file to continue testing.
 """
 
 
