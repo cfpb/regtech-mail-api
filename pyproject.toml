@@ -16,7 +16,6 @@ email-validator = "^2.1.0.post1"
 python-multipart = "^0.0.18"
 regtech-api-commons = {git = "https://github.com/cfpb/regtech-api-commons.git"}
 
-
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
 pytest-mock = "^3.12.0"
