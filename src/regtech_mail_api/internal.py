@@ -35,15 +35,15 @@ class ConfirmationRequest(BaseModel):
 
 
 prod_body_template = """
-    Congratulations! This email confirms that {signer_name} submitted a filing on {formatted_date} was successful. The confirmation number for this filing is {confirmation_id}.
+    Congratulations! This email confirms that {signer_name} submitted a filing on {formatted_date}. The confirmation number for this filing is {confirmation_id}.
 
     If you have any questions or need additional support, email our support staff at sblhelp@cfpb.gov.
 """
 
 beta_body_template = """
-    Congratulations! This email confirms that {signer_name} submitted a filing on {formatted_date} was successful. The confirmation number for this filing is {confirmation_id}.
+    Congratulations! This email confirms that {signer_name} submitted a filing on {formatted_date}. The confirmation number for this filing is {confirmation_id}.
 
-    The beta platform is for testing purposes only and user-supplied data may be removed at any time. Email our support staff at sblhelp@cfpb.gov to share feedback or upload a new file to continue testing.
+    The beta platform is for testing purposes only and user-supplied data may be removed at any time. Email our support staff at sblhelp@cfpb.gov to share feedback or return to the platform to upload a new file and continue testing.
 """
 
 

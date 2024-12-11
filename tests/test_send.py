@@ -137,7 +137,7 @@ class TestEmailApiSend:
 
         expected_email = {
             "subject": "[BETA] Small Business Lending Data Filing Confirmation",
-            "body": "\nCongratulations! This email confirms that Test User submitted a filing on March 15, 2024 at 6:10 a.m. EST was successful. The confirmation number for this filing is test.\n\nThe beta platform is for testing purposes only and user-supplied data may be removed at any time. Email our support staff at sblhelp@cfpb.gov to share feedback or upload a new file to continue testing.\n",
+            "body": "\nCongratulations! This email confirms that Test User submitted a filing on March 15, 2024 at 6:10 a.m. EST. The confirmation number for this filing is test.\n\nThe beta platform is for testing purposes only and user-supplied data may be removed at any time. Email our support staff at sblhelp@cfpb.gov to share feedback or return to the platform to upload a new file and continue testing.\n",
             "from_addr": "test@cfpb.gov",
             "to": ["test@cfpb.gov"],
             "cc": None,
@@ -165,7 +165,7 @@ class TestEmailApiSend:
 
         expected_email = {
             "subject": "[BETA] Small Business Lending Data Filing Confirmation",
-            "body": "\nCongratulations! This email confirms that Test User submitted a filing on Sept. 15, 2024 at 1:10 p.m. EST was successful. The confirmation number for this filing is test.\n\nThe beta platform is for testing purposes only and user-supplied data may be removed at any time. Email our support staff at sblhelp@cfpb.gov to share feedback or upload a new file to continue testing.\n",
+            "body": "\nCongratulations! This email confirms that Test User submitted a filing on Sept. 15, 2024 at 1:10 p.m. EST. The confirmation number for this filing is test.\n\nThe beta platform is for testing purposes only and user-supplied data may be removed at any time. Email our support staff at sblhelp@cfpb.gov to share feedback or return to the platform to upload a new file and continue testing.\n",
             "from_addr": "test@cfpb.gov",
             "to": ["test@cfpb.gov"],
             "cc": None,
@@ -194,7 +194,7 @@ class TestEmailApiSend:
 
         expected_email = {
             "subject": "[BETA] Small Business Lending Data Filing Confirmation",
-            "body": "\nCongratulations! This email confirms that Test User submitted a filing on Nov. 20, 2024 at 1:51 p.m. EST was successful. The confirmation number for this filing is test.\n\nThe beta platform is for testing purposes only and user-supplied data may be removed at any time. Email our support staff at sblhelp@cfpb.gov to share feedback or upload a new file to continue testing.\n",
+            "body": "\nCongratulations! This email confirms that Test User submitted a filing on Nov. 20, 2024 at 1:51 p.m. EST. The confirmation number for this filing is test.\n\nThe beta platform is for testing purposes only and user-supplied data may be removed at any time. Email our support staff at sblhelp@cfpb.gov to share feedback or return to the platform to upload a new file and continue testing.\n",
             "from_addr": "test@cfpb.gov",
             "to": ["test@cfpb.gov"],
             "cc": None,
@@ -211,7 +211,7 @@ class TestEmailApiSend:
             mock_settings.from_addr = "test@cfpb.gov"
             expected_email = {
                 "subject": "Small Business Lending Data Filing Confirmation",
-                "body": "\nCongratulations! This email confirms that Test User submitted a filing on Nov. 20, 2024 at 1:51 p.m. EST was successful. The confirmation number for this filing is test.\n\nIf you have any questions or need additional support, email our support staff at sblhelp@cfpb.gov.\n",
+                "body": "\nCongratulations! This email confirms that Test User submitted a filing on Nov. 20, 2024 at 1:51 p.m. EST. The confirmation number for this filing is test.\n\nIf you have any questions or need additional support, email our support staff at sblhelp@cfpb.gov.\n",
                 "from_addr": "test@cfpb.gov",
                 "to": ["test_contact@cfpb.gov", "test@cfpb.gov"],
                 "cc": None,
