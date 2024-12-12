@@ -57,7 +57,7 @@ async def send_email(request: Request, confirmation_request: ConfirmationRequest
             signer_name=confirmation_request.signer_name,
             formatted_date=formatted_date,
             confirmation_id=confirmation_request.confirmation_id,
-            line_break="\n\n"
+            line_break="\n\n",
         )
     )
 
