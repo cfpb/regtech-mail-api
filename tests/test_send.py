@@ -122,7 +122,7 @@ class TestEmailApiSend:
 
         mock_settings = mocker.patch("regtech_mail_api.internal.settings")
         mock_settings.from_addr = "test@cfpb.gov"
-        mock_settings.beta_body_template = "\nCongratulations! This email confirms that Test User submitted a filing on {formatted_date} was successful. The confirmation number for this filing is {confirmation_id}.{line_break}The beta platform is for testing purposes only and user-supplied data may be removed at any time. Email our support staff at sblhelp@cfpb.gov to share feedback or upload a new file to continue testing.\n"
+        mock_settings.beta_body_template = "\nCongratulations! This email confirms that Test User submitted a filing on {formatted_date}. The confirmation number for this filing is {confirmation_id}.{line_break}The beta platform is for testing purposes only and user-supplied data may be removed at any time. Email our support staff at sblhelp@cfpb.gov to share feedback or return to the platform to upload a new file and continue testing.\n"
         res = client.post(
             "/internal/confirmation/send",
             data=json.dumps(
@@ -186,7 +186,7 @@ class TestEmailApiSend:
 
         mock_settings = mocker.patch("regtech_mail_api.internal.settings")
         mock_settings.from_addr = "test@cfpb.gov"
-        mock_settings.beta_body_template = "\nCongratulations! This email confirms that Test User submitted a filing on {formatted_date} was successful. The confirmation number for this filing is {confirmation_id}.{line_break}The beta platform is for testing purposes only and user-supplied data may be removed at any time. Email our support staff at sblhelp@cfpb.gov to share feedback or upload a new file to continue testing.\n"
+        mock_settings.beta_body_template = "\nCongratulations! This email confirms that Test User submitted a filing on {formatted_date}. The confirmation number for this filing is {confirmation_id}.{line_break}The beta platform is for testing purposes only and user-supplied data may be removed at any time. Email our support staff at sblhelp@cfpb.gov to share feedback or return to the platform to upload a new file and continue testing.\n"
 
         res = client.post(
             "/internal/confirmation/send",
@@ -214,7 +214,7 @@ class TestEmailApiSend:
         assert res.json()["email"] == expected_email
 
         mock_settings.environment = "PROD"
-        mock_settings.prod_body_template = "\nCongratulations! This email confirms that Test User submitted a filing on {formatted_date} was successful. The confirmation number for this filing is test.{line_break}If you have any questions or need additional support, email our support staff at sblhelp@cfpb.gov.\n"
+        mock_settings.prod_body_template = "\nCongratulations! This email confirms that Test User submitted a filing on {formatted_date} was successful. The confirmation number for this filing is {confirmation_id}.{line_break}If you have any questions or need additional support, email our support staff at sblhelp@cfpb.gov.\n"
         expected_email = {
             "subject": "Small Business Lending Data Filing Confirmation",
             "body": "\nCongratulations! This email confirms that Test User submitted a filing on Nov. 20, 2024 at 1:51 p.m. EST was successful. The confirmation number for this filing is test.\n\nIf you have any questions or need additional support, email our support staff at sblhelp@cfpb.gov.\n",
