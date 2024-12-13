@@ -34,19 +34,6 @@ class ConfirmationRequest(BaseModel):
     confirmation_id: str
 
 
-prod_body_template = """
-    Congratulations! This email confirms that {signer_name} submitted a filing on {formatted_date}. The confirmation number for this filing is {confirmation_id}.
-
-    If you have any questions or need additional support, email our support staff at sblhelp@cfpb.gov.
-"""
-
-beta_body_template = """
-    Congratulations! This email confirms that {signer_name} submitted a filing on {formatted_date}. The confirmation number for this filing is {confirmation_id}.
-
-    The beta platform is for testing purposes only and user-supplied data may be removed at any time. Email our support staff at sblhelp@cfpb.gov to share feedback or return to the platform to upload a new file and continue testing.
-"""
-
-
 @router.post("/confirmation/send")
 async def send_email(request: Request, confirmation_request: ConfirmationRequest):
     mailer = create_mailer()
@@ -61,13 +48,16 @@ async def send_email(request: Request, confirmation_request: ConfirmationRequest
         f"{formatted_month} {timestamp_est.strftime("%d, %Y at %-I:%M")} {am_pm} EST"
     )
     body_template = (
-        prod_body_template if settings.environment == "PROD" else beta_body_template
+        settings.prod_body_template
+        if settings.environment == "PROD"
+        else settings.beta_body_template
     )
     body_text = dedent(
         body_template.format(
             signer_name=confirmation_request.signer_name,
             formatted_date=formatted_date,
             confirmation_id=confirmation_request.confirmation_id,
+            line_break="\n\n",
         )
     )
 

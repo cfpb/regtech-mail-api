@@ -23,6 +23,9 @@ class EmailApiSettings(BaseSettings):
     cc: set[EmailStr] | None = None
     bcc: set[EmailStr] | None = None
 
+    prod_body_template: str = None
+    beta_body_template: str = None
+
     @model_validator(mode="after")
     def check_smtp(self):
         if self.email_mailer == EmailMailerType.SMTP:
