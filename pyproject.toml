@@ -47,7 +47,9 @@ env = [
   "AUTH_CLIENT=",
   "EMAIL_MAILER=mock",
   "FROM_ADDR=test@cfpb.gov",
-  "TO=cases@localhost.localdomain"
+  "TO=cases@localhost.localdomain",
+  "BETA_BODY_TEMPLATE=Congratulations! This email confirms that {{signer_name}} submitted a filing on {{formatted_date}}. The confirmation number for this filing is {{confirmation_id}}.{{line_break}}You filed in beta.",
+  "PROD_BODY_TEMPLATE=Congratulations! This email confirms that {{signer_name}} submitted a filing on {{formatted_date}} was successful. The confirmation number for this filing is {{confirmation_id}}.{{line_break}}You filed in PROD."
 ]
 addopts = [
     "--cov-report=term-missing",
