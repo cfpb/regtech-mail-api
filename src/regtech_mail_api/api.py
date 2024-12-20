@@ -12,6 +12,10 @@ from starlette.middleware.authentication import AuthenticationMiddleware
 from regtech_api_commons.oauth2.oauth2_backend import BearerTokenAuthBackend
 from regtech_api_commons.oauth2.oauth2_admin import OAuth2Admin
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 app = FastAPI()
 
 token_bearer = OAuth2AuthorizationCodeBearer(
@@ -73,6 +77,8 @@ async def send_email(request: Request):
     email_body = f"Contact Email: {sender_addr}\n"
     email_body += f"Contact Name: {sender_name}\n\n"
     email_body += "\n".join(body_lines)
+
+    logger.info(email_body)
 
     email = Email(subject, email_body, settings.from_addr, to={settings.to})
 

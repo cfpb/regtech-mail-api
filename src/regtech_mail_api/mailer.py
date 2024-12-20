@@ -6,6 +6,10 @@ import ssl
 
 from regtech_mail_api.models import Email
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class Mailer(ABC):
 
@@ -29,9 +33,12 @@ class SmtpMailer(Mailer):
         mailer = smtplib.SMTP(host=self.host, port=self.port)
 
         if self.use_tls:
+            logger.info("Using TLS")
+
             mailer.starttls(context=ssl.create_default_context())
 
         if self.username and self.password:
+            logger.info("Using username and password")
             mailer.login(self.username, self.password)
 
         mailer.send_message(msg=message.to_email_message())

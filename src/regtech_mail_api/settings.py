@@ -4,6 +4,10 @@ from pydantic_settings import BaseSettings
 
 from regtech_api_commons.oauth2.config import KeycloakSettings
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class EmailMailerType(str, Enum):
     MOCK = "mock"
@@ -28,10 +32,24 @@ class EmailApiSettings(BaseSettings):
 
             if self.smtp_host:
                 if bool(self.smtp_username) ^ bool(self.smtp_password):
+                    logger.error(
+                        (
+                            "SMTP check failed: username and password must both be set when using SMTP credentials"
+                        ),
+                        exc_info=True,
+                        stack_info=True,
+                    )
                     raise ValueError(
                         "username and password must both be set when using SMTP credentials"
                     )
             else:
+                logger.error(
+                    (
+                        "SMTP check failed: SMTP host must be set when using SMTP email sender"
+                    ),
+                    exc_info=True,
+                    stack_info=True,
+                )
                 raise ValueError("SMTP host must be set when using SMTP email sender")
 
         return self
