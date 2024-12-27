@@ -26,8 +26,7 @@ jobs:
 
       - name: 'Echo test'
         run: |
-          echo TAG_VERSION ${{ steps.version.outputs.TAG_VERSION }}
-          echo TAG_VERSION ${{ env.TAG_VERSION }}
+          echo TAG_VERSION $TAG_VERSION
 
       - name: 'Build Image'
         id: build
