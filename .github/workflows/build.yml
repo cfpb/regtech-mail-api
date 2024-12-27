@@ -22,7 +22,7 @@ jobs:
       - name: Get Version
         id: version
         run: |
-          echo "TAG_VERSION=$(cat ../../pyproject.toml | grep '^version.*$' | sed 's/version = //' | tr -d '\"' )" >> $GITHUB_ENV
+          echo "TAG_VERSION=$(cat pyproject.toml | grep '^version.*$' | sed 's/version = //' | tr -d '\"' )" >> $GITHUB_ENV
 
       - name: 'Echo test'
         run: |
