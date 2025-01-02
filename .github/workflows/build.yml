@@ -27,15 +27,10 @@ jobs:
           docker tag ghcr.io/cfpb/regtech/sbl/regtech-mail-api:latest ghcr.io/cfpb/regtech/sbl/regtech-mail-api:${{env.TAG_VERSION}}_${{github.run_attempt}}
           docker tag ghcr.io/cfpb/regtech/sbl/regtech-mail-api:latest ghcr.io/cfpb/regtech/sbl/regtech-mail-api:latest
 
-  publish:
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/main'
-    steps:
       - name: 'Login to GitHub Container Registry'
         id: login
         uses: docker/login-action@v3
-        if: steps.build.conclusion == 'success'
+        if: ${{ steps.build.conclusion == 'success' }} && ${{ github.ref == 'refs/heads/main' }}
         with:
           registry: ghcr.io
           username: ${{github.actor}}
@@ -43,7 +38,7 @@ jobs:
 
       - name: 'Publish Image'
         id: publish
-        if: steps.login.conclusion == 'success'
+        if: ${{ steps.login.conclusion == 'success' }} && ${{ github.ref == 'refs/heads/main' }}
         run: |
           docker push ghcr.io/cfpb/regtech/sbl/regtech-mail-api --all-tags
 
