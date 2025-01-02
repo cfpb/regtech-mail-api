@@ -1,10 +1,7 @@
 name: BuildImage
 
 on:
-  workflow_run:
-    workflows: ["Tests"]
-    types:
-      - completed
+  pull_request:
   push:
     branches:
       - main
@@ -12,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.status == 'completed' }} && ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: 'Checkout GitHub Action'
         id: checkout
@@ -22,10 +18,6 @@ jobs:
         id: version
         run: |
           echo "TAG_VERSION=$(cat pyproject.toml | grep '^version.*$' | sed 's/version = //' | tr -d '\"' )" >> $GITHUB_ENV
-
-      - name: 'Echo test'
-        run: |
-          echo TAG_VERSION $TAG_VERSION
 
       - name: 'Build Image'
         id: build
