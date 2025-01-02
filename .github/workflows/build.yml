@@ -22,7 +22,7 @@ jobs:
       - name: 'Build Image'
         id: build
         run: |
-          docker build -t ghcr.io/cfpb/regtech/sbl/regtech-mail-api:latest -f DOESNOTEXIST_Dockerfile .
+          docker build -t ghcr.io/cfpb/regtech/sbl/regtech-mail-api:latest -f Dockerfile .
           docker tag ghcr.io/cfpb/regtech/sbl/regtech-mail-api:latest ghcr.io/cfpb/regtech/sbl/regtech-mail-api:${{env.TAG_VERSION}}
           docker tag ghcr.io/cfpb/regtech/sbl/regtech-mail-api:latest ghcr.io/cfpb/regtech/sbl/regtech-mail-api:${{env.TAG_VERSION}}_${{github.run_attempt}}
 
