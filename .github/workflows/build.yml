@@ -30,7 +30,7 @@ jobs:
       - name: 'Login to GitHub Container Registry'
         id: login
         uses: docker/login-action@v3
-        if: ${{ steps.build.conclusion == 'success' }} && ${{ github.ref == 'refs/heads/main' }}
+        if: github.ref == 'refs/heads/main' && steps.build.conclusion == 'success'
         with:
           registry: ghcr.io
           username: ${{github.actor}}
@@ -38,7 +38,7 @@ jobs:
 
       - name: 'Publish Image'
         id: publish
-        if: ${{ steps.login.conclusion == 'success' }} && ${{ github.ref == 'refs/heads/main' }}
+        if: github.ref == 'refs/heads/main' && steps.login.conclusion == 'success'
         run: |
           docker push ghcr.io/cfpb/regtech/sbl/regtech-mail-api --all-tags
 
