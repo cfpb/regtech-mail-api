@@ -2,16 +2,18 @@ FROM ghcr.io/cfpb/regtech/sbl/python-alpine:3.12
 
 ENV UVICORN_LOG_LEVEL=info
 
-WORKDIR /usr/app/src
+WORKDIR /usr/app
 
 RUN pip install poetry
 
-COPY --chown=sbl:sbl poetry.lock pyproject.toml log-config.yml ./
+COPY --chown=sbl:sbl poetry.lock pyproject.toml README.md ./
 
 RUN poetry config virtualenvs.create false
-RUN poetry install
+RUN poetry install --only main --no-root
 
-COPY --chown=sbl:sbl src/ ./
+COPY --chown=sbl:sbl ./src ./src
+
+WORKDIR /usr/app/src
 
 EXPOSE 8765
 
