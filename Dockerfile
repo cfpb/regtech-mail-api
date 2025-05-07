@@ -1,4 +1,4 @@
-FROM ghcr.io/cfpb/regtech/sbl/python-alpine:3.12
+FROM ghcr.io/cfpb/regtech/sbl/python-alpine:v3.12.0
 
 ENV UVICORN_LOG_LEVEL=info
 
